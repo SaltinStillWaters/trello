@@ -9,18 +9,6 @@ const routes = [
     component: () => import('@/layouts/GuestLayout.vue'),
     children: [
       {
-        path: 'products',
-        name: 'Products',
-        component: () => import('@/views/User/Products.vue'),
-        meta: { guest: true },
-      },
-      {
-        path: '',
-        name: 'Home',
-        component: () => import('@/views/Guest/Home.vue'),
-        meta: { guest: true },
-      },
-      {
         path: 'login',
         name: 'Login',
         component: () => import('@/views/Guest/Login.vue'),
@@ -39,21 +27,6 @@ const routes = [
         path: '',
         name: 'Dashboard',
         component: () => import('@/views/User/Dashboard.vue'),
-      },
-      {
-        path: 'inventory',
-        name: 'Inventory',
-        component: () => import('@/views/User/Inventory.vue'),
-      },
-      {
-        path: 'restock-history',
-        name: 'RestockHistory',
-        component: () => import('@/views/User/RestockHistory.vue'),
-      },
-      {
-        path: 'adjustment-history',
-        name: 'AdjustHistory',
-        component: () => import('@/views/User/AdjustHistory.vue'),
       },
     ],
   },

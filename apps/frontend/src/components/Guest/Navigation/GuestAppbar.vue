@@ -73,8 +73,6 @@ const drawer = ref(false)
 const route = useRoute()
 
 const navItems = [
-  { label: 'Home',       to: '/',           icon: 'mdi-home-outline' },
-  { label: 'Products', to: '/products', icon: 'mdi-office-building-outline' },
 ]
 
 const isActive = (to) => {
