@@ -12,7 +12,7 @@ const routes = [
         path: 'login',
         name: 'Login',
         component: () => import('@/views/Guest/Login.vue'),
-        meta: { guest: true },
+        meta: { guest: true, hideAppBar: true },
       },
     ],
   },

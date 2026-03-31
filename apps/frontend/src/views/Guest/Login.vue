@@ -1,29 +1,49 @@
 <template>
   <!-- fill-height makes this row take full remaining height inside v-main -->
-  <v-row density="compact" class="fill-height" style="min-height: 100dvh;">
-
+  <v-row density="compact" class="fill-height" style="min-height: 100dvh">
     <!-- LEFT: Image panel — hidden on mobile -->
     <v-col
       cols="12"
       md="6"
       class="d-none d-md-flex align-start"
       style="
-        background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200') center/cover no-repeat;
+        background: url(&quot;https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1200&quot;)
+          center/cover no-repeat;
         position: relative;
       "
     >
       <!-- Dark overlay — inline style required for gradient over bg image -->
       <div
         class="w-100 h-100 position-absolute"
-        style="inset:0; background: linear-gradient(160deg,rgba(10,48,60,.55) 0%,rgba(10,48,60,.30) 100%);"
+        style="
+          inset: 0;
+          background: linear-gradient(
+            160deg,
+            rgba(10, 48, 60, 0.55) 0%,
+            rgba(10, 48, 60, 0.3) 100%
+          );
+        "
       />
 
       <!-- Content on top of overlay -->
       <div class="position-relative pa-10 pb-14 text-white text-start">
-        <div class="font-weight-bold mb-3" style="line-height:1.5; font-size: clamp(1.8rem, 3.5vw, 2.8rem); text-shadow: 2px 4px 12px rgba(0,0,0,0.5);">
-          Explore Opportunities<br/>List Your Properties!
+        <div
+          class="font-weight-bold mb-3"
+          style="
+            line-height: 1.5;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.5);
+          "
+        >
+          Organize Your Work,
+          <br />Achieve More!
         </div>
-        <p class="font-weight-medium" style="text-shadow: 1px 2px 8px rgba(0,0,0,0.4);">Property solutions made simple.</p>
+        <p
+          class="font-weight-medium"
+          style="text-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4)"
+        >
+          Move ideas from To-Do to Done.
+        </p>
       </div>
     </v-col>
 
@@ -32,24 +52,31 @@
       cols="12"
       md="6"
       class="d-flex align-center justify-center pa-6 position-relative"
-      style="background-color: #F3F7FF;"
+      style="background-color: #f3f7ff"
     >
-    <!-- logo -->
-      <router-link to="/" style="position: absolute; top: 24px; right: 24px;">
-        <img :src="logo" alt="MyHomeTown Logo" height="60" style="cursor: pointer;" />
+      <!-- logo -->
+      <router-link to="/" style="position: absolute; top: 24px; right: 24px">
+        <img
+          :src="logo"
+          alt="MyHomeTown Logo"
+          height="60"
+          style="cursor: pointer"
+        />
       </router-link>
 
       <v-sheet max-width="560" width="100%" color="transparent">
-
         <div class="mb-8">
           <!-- <p class="text-overline text-primary font-weight-bold mb-1">Welcome Back</p> -->
-          <h1 class="text-h5 font-weight-bold text-grey-darken-4">Welcome Back!</h1>
-          <p class="mt-1 text-body-2 text-grey-darken-2 font-weight-medium">Sign in your account.</p>
-          <hr>
+          <h1 class="text-h5 font-weight-bold text-grey-darken-4">
+            Welcome Back!
+          </h1>
+          <p class="mt-1 text-body-2 text-grey-darken-2 font-weight-medium">
+            Sign in your account.
+          </p>
+          <hr />
         </div>
 
         <v-form ref="formRef" @submit.prevent="handleLogin">
-
           <v-text-field
             v-model="form.username"
             :rules="usernameRules"
@@ -73,7 +100,9 @@
             label="Password"
             placeholder="••••••••"
             prepend-inner-icon="mdi-lock-outline"
-            :append-inner-icon="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
+            :append-inner-icon="
+              showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'
+            "
             @click:append-inner="showPassword = !showPassword"
             rounded="lg"
             class="mb-1"
@@ -89,7 +118,12 @@
               hide-details
               color="primary"
             />
-            <v-btn variant="text" color="primary" size="small" class="text-caption">
+            <v-btn
+              variant="text"
+              color="primary"
+              size="small"
+              class="text-caption"
+            >
               Forgot password?
             </v-btn>
           </div>
@@ -118,69 +152,61 @@
             class="font-weight-bold"
           >
             Login
-            <!-- <v-icon end>mdi-arrow-right</v-icon> -->
+            <v-icon end>mdi-arrow-right</v-icon>
           </v-btn>
-
         </v-form>
-
-        <!-- <p class="text-center text-caption text-medium-emphasis mt-6">
-          By signing in you agree to our
-          <v-btn variant="text" color="primary">Terms</v-btn>
-          and
-          <v-btn variant="text" color="primary" size="x-small" class="px-1">Privacy Policy</v-btn>
-        </p> -->
 
       </v-sheet>
 
-      <div class="d-flex ga-8 position-absolute" style="bottom: 24px;">
+      <!-- <div class="d-flex ga-8 position-absolute" style="bottom: 24px">
         <v-btn variant="text" color="grey-darken-2" size="small">Privacy</v-btn>
         <v-btn variant="text" color="grey-darken-2" size="small">Terms</v-btn>
-      </div>
+      </div> -->
     </v-col>
-
   </v-row>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-import logo from '@/assets/logo.png'
+import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
+import logo from "@/assets/logo.png";
 
-const router    = useRouter()
-const authStore = useAuthStore()
-const formRef   = ref(null)
-const loading   = ref(false)
-const showPassword = ref(false)
-const rememberMe   = ref(false)
-const errorMsg     = ref('')
+const router = useRouter();
+const authStore = useAuthStore();
+const formRef = ref(null);
+const loading = ref(false);
+const showPassword = ref(false);
+const rememberMe = ref(false);
+const errorMsg = ref("");
 
-const form = reactive({ username: '', password: '' })
+const form = reactive({ username: "", password: "" });
 
 const usernameRules = [
-  v => !!v || 'username is required',
+  (v) => !!v || "username is required",
   // v => /.+@.+\..+/.test(v) || 'Must be a valid username',
-]
+];
 const passwordRules = [
-  v => !!v || 'Password is required',
+  (v) => !!v || "Password is required",
   // v => v.length >= 6 || 'Minimum 6 characters',
-]
+];
 
 const handleLogin = async () => {
-  const { valid } = await formRef.value.validate()
-  if (!valid) return
+  const { valid } = await formRef.value.validate();
+  if (!valid) return;
 
-  loading.value = true
-  errorMsg.value = ''
+  loading.value = true;
+  errorMsg.value = "";
 
   try {
-    console.log({form})
-    await authStore.login(form.username, form.password)
-    router.push({ name: 'Dashboard' })
+    console.log({ form });
+    await authStore.login(form.username, form.password);
+    router.push({ name: "Dashboard" });
   } catch (err) {
-    errorMsg.value = err?.response?.data?.error || 'Invalid credentials. Please try again.'
+    errorMsg.value =
+      err?.response?.data?.error || "Invalid credentials. Please try again.";
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>

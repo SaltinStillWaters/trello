@@ -6,7 +6,7 @@
     <v-main>
       <router-view />
     </v-main>
-    <GuestFooter v-if="!route.meta.hideFooter" />
+    <!-- <GuestFooter v-if="!route.meta.hideFooter" /> -->
   </v-app>
 </template>
 
