@@ -1,18 +1,18 @@
 services:
   postgres:
     image: postgres:18
-    container_name: sudocodes_pos_db
+    container_name: trello_pejana_db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: sudocodes_pos
+      POSTGRES_DB: trello_pejana
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secretpassword
     ports:
-      - "5432:5432"
+      - "5435:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d sudocodes_pos"]
+      test: ["CMD-SHELL", "pg_isready -U admin -d trello_pejana"]
       interval: 5s
       timeout: 5s
       retries: 5

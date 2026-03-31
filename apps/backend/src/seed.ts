@@ -5,10 +5,10 @@ import { TestExample } from './test-example/test.entity';
 const AppDataSource = new DataSource({
   type: (process.env.DB_TYPE as any) || 'postgres',
   host: process.env.DB_HOST || '127.0.0.1',
-  port: Number(process.env.DB_PORT) || 5432,
+  port: Number(process.env.DB_PORT) || 5435,
   username: process.env.DB_USERNAME || 'admin',
   password: process.env.DB_PASSWORD || 'secretpassword',
-  database: process.env.DB_DATABASE || 'sudocodes_pos',
+  database: process.env.DB_DATABASE || 'trello_pejana',
   entities: [TestExample],
   synchronize: true,
 });
