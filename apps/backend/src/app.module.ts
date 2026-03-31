@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TestExampleModule } from './test-example/test-example.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TestExample } from './test-example/test.entity';
 import { TypedConfigModule } from './typed-config/typed-config.module';
 import { TypedConfigService } from './typed-config/typed-config.service';
 import { AuthModule } from './auth/auth.module';
@@ -38,9 +35,7 @@ import { CardModule } from './card/card.module';
     BoardColumnModule,
     CardModule,
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_GUARD,
       useClass: JWTAuthGuard,

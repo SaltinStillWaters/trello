@@ -1,28 +1,7 @@
-import { 
-    Controller, 
-    Post, 
-    Body, 
-    Patch, 
-    Param, 
-    Delete, 
-    UseGuards, 
-    Logger
-} from '@nestjs/common';
-import { CurrentUser, type AuthUser } from '../auth/types'; // Adjust path
+import { Controller, Post, Body, Patch, Param, Delete, Logger } from '@nestjs/common';
+import { CurrentUser, type AuthUser } from '../auth/types'; 
 import { BoardColumnService } from './board-column.service';
-import { IsNotEmpty, IsString } from 'class-validator';
-
-// Define your DTOs (You can move these to a separate column.dto.ts file)
-export class CreateColumnDto {
-    @IsString()
-    @IsNotEmpty()
-    name: string;
-}
-
-export class UpdateColumnDto {
-    name?: string;
-    order?: number; // Crucial for drag-and-drop later!
-}
+import { CreateColumnDto, UpdateColumnDto } from './types/dto';
 
 @Controller('boards/:boardId/columns')
 export class BoardColumnController {
@@ -34,10 +13,6 @@ export class BoardColumnController {
         @CurrentUser() user: AuthUser,
         @Body() dto: CreateColumnDto
     ) {
-
-        Logger.log({boardId, user, ...dto})
-        // We pass the user to the service to ensure they actually own the board
-        // before allowing them to add a column to it!
         return await this.columnService.create(boardId, dto, user);
     }
 
@@ -58,6 +33,5 @@ export class BoardColumnController {
         @CurrentUser() user: AuthUser
     ) {
         await this.columnService.remove(boardId, columnId, user);
-        return { success: true };
     }
 }

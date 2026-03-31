@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, ILike } from 'typeorm';
 import { User } from './user.entity';
@@ -15,8 +15,6 @@ class UserInfo {
 
 @Injectable()
 export class UserService {
-    private readonly logger = new Logger(UserService.name);
-
     constructor(
         @InjectRepository(User) private readonly userRepository: Repository<User>,
     ) {}
@@ -40,7 +38,6 @@ export class UserService {
     async update(dto: UpdateBulkDto): Promise<void> {
         const updates = await this.prepareUpdates(dto);
         
-        // Run all updates concurrently without a manual transaction block
         await Promise.all(
             updates.map(updateData => 
                 this.userRepository.update({ id: updateData.id }, updateData.update)
@@ -72,7 +69,6 @@ export class UserService {
             }))
         );
 
-        // TypeORM natively handles this as a single bulk insert query
         await this.userRepository.insert(inserts);
     }
 

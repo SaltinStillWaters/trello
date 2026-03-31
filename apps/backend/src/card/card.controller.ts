@@ -5,23 +5,10 @@ import {
     Patch, 
     Param, 
     Delete, 
-    UseGuards 
 } from '@nestjs/common';
 import { CardService } from './card.service';
 import { CurrentUser, type AuthUser } from '../auth/types'; // Adjust path
-
-// You can move these DTOs to a separate card.dto.ts file
-export class CreateCardDto {
-    title: string;
-    description?: string;
-}
-
-export class UpdateCardDto {
-    title?: string;
-    description?: string;
-    order?: number;     // For reordering within the same column
-    columnId?: string;  // CRITICAL: Allows moving the card to a completely different column!
-}
+import { CreateCardDto, UpdateCardDto } from './types';
 
 @Controller('boards/:boardId/columns/:columnId/cards')
 export class CardController {

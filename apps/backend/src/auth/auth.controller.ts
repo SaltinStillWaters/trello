@@ -1,19 +1,15 @@
-import { BadRequestException, Body, Controller, Get, Logger, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Logger, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { LoginDto, Role } from './types';
 import type { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { Public, Roles } from './auth.decorator';
-import { JwtService } from '@nestjs/jwt';
 import { CookieService } from './cookie/cookie.service';
-import { TypedConfigService } from 'src/typed-config/typed-config.service';
 
 @Controller('auth')
 export class AuthController {
     constructor(
         private service: AuthService,
         private cookieService: CookieService,
-        private jwtService: JwtService,
-        private config: TypedConfigService
     ) {}
     
     @Public()
@@ -27,7 +23,7 @@ export class AuthController {
         
         this.cookieService.createJwt(res, jwtPayload);
         this.cookieService.createRefresh(res, refreshPayload)
-        Logger.log({jwtPayload})
+        
         return {user};
     }
     
@@ -45,7 +41,6 @@ export class AuthController {
         try {
             const { refreshId } = JSON.parse(oldRefreshPayload)
 
-            Logger.log({refreshId})
             if (!refreshId) throw new Error()
 
             const {refreshPayload, jwtPayload} = await this.service.refresh(refreshId)

@@ -17,8 +17,8 @@ async function bootstrap() {
   app.use(cookieParser(config.get('COOKIE_SECRET')));
 
   app.enableCors({
-    origin: "http://localhost:5173", // frontend URL
-    credentials: true // if you plan to send cookies
+    origin: "http://localhost:5173",
+    credentials: true
   });
 
   await app.listen(process.env.PORT ?? 3000);

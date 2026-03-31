@@ -22,24 +22,18 @@ export class Board {
     @Column({ type: 'text', nullable: true })
     description: string;
 
-    // --- Relations ---
-
-    // Every board must have an owner/creator
     @ManyToOne(() => User, { 
         nullable: false, 
-        onDelete: 'CASCADE' // If the user is deleted, delete their boards too
+        onDelete: 'CASCADE'
     })
     @JoinColumn({ name: 'owner_id' })
     owner: User;
 
-    // Exposing the raw foreign key for easier queries (just like we did with RefreshToken)
     @Column({ type: 'uuid', name: 'owner_id' })
     ownerId: string;
 
     @OneToMany(() => BoardColumn, (column) => column.board)
     columns: BoardColumn[];
-
-    // --- Timestamps ---
 
     @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
     createdAt: Date;
