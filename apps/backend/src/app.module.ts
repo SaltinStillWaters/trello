@@ -7,6 +7,11 @@ import { TestExample } from './test-example/test.entity';
 import { TypedConfigModule } from './typed-config/typed-config.module';
 import { TypedConfigService } from './typed-config/typed-config.service';
 import { AuthModule } from './auth/auth.module';
+import { BoardModule } from './board/board.module';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { JWTAuthGuard } from './auth/guards/jwt.guard';
+import { RoleGuard } from './auth/guards/role.guard';
+import { GlobalFilter } from './global.filter';
 
 @Module({
   imports: [
@@ -23,12 +28,27 @@ import { AuthModule } from './auth/auth.module';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
         synchronize: configService.get('DB_SYNCHRONIZE'),
-        autoLoadEntities: true
-      })
+        autoLoadEntities: true,
+      }),
     }),
     AuthModule,
+    BoardModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JWTAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: GlobalFilter,
+    },
+  ],
 })
 export class AppModule {}
