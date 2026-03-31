@@ -5,9 +5,11 @@ import {
     CreateDateColumn, 
     UpdateDateColumn, 
     ManyToOne, 
-    JoinColumn 
+    JoinColumn, 
+    OneToMany
 } from 'typeorm';
 import { User } from 'src/user/user.entity';
+import { BoardColumn } from 'src/board-column/board-column.entity';
 
 @Entity('boards')
 export class Board {
@@ -33,6 +35,9 @@ export class Board {
     // Exposing the raw foreign key for easier queries (just like we did with RefreshToken)
     @Column({ type: 'uuid', name: 'owner_id' })
     ownerId: string;
+
+    @OneToMany(() => BoardColumn, (column) => column.board)
+    columns: BoardColumn[];
 
     // --- Timestamps ---
 

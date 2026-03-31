@@ -12,6 +12,8 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { JWTAuthGuard } from './auth/guards/jwt.guard';
 import { RoleGuard } from './auth/guards/role.guard';
 import { GlobalFilter } from './global.filter';
+import { BoardColumnModule } from './board-column/board-column.module';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { GlobalFilter } from './global.filter';
     }),
     AuthModule,
     BoardModule,
+    BoardColumnModule,
+    CardModule,
   ],
   controllers: [AppController],
   providers: [

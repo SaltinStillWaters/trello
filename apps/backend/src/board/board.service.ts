@@ -42,18 +42,25 @@ export class BoardService {
     }
 
     async findOne(id: string, userId: string): Promise<Board> {
-        // Notice we query by BOTH id and ownerId. 
-        // This ensures User A cannot fetch User B's board by guessing the ID.
-        const board = await this.boardRepository.findOne({
-            where: { id, ownerId: userId },
-        });
-
-        if (!board) {
-            throw new NotFoundException(`Board not found or you do not have access to it.`);
+    const board = await this.boardRepository.findOne({
+        where: { id, ownerId: userId },
+        
+        // THIS is the magic! It tells TypeORM to fetch the columns, 
+        // and the cards inside those columns, all in one database query.
+        relations: ['columns', 'columns.cards'], 
+        
+        // It also sorts them so your Vue v-for loops render them in the exact right order
+        order: {
+            columns: {
+                order: 'ASC',
+                cards: { order: 'ASC' }
+            }
         }
+    });
 
-        return board;
-    }
+    if (!board) throw new NotFoundException('Board not found');
+    return board;
+}
 
     async update(id: string, dto: UpdateBoardDto, userId: string): Promise<Board> {
         // First, ensure the board exists and belongs to the user
