@@ -1,8 +1,8 @@
 export default {
-  main_site: 'http://localhost:3000',
+  main_site: 'http://localhost:3000/api',
 
-  apiv1: 'http://localhost:3000',
-  apiv1_ip: 'http://localhost:3000/',
+  apiv1: 'http://localhost:3000/api',
+  apiv1_ip: 'http://localhost:3000/api',
 
   timeout: 60000,
 

@@ -16,7 +16,13 @@ const validationSchema = zod.object({
   // Custom logic for Boolean strings like 'true'
   DB_SYNCHRONIZE: zod.preprocess((val) => val === 'true', zod.boolean()),
 
-  // ~Add your variables here~
+  NODE_ENV: zod.string(),
+  PORT: zod.coerce.number(),
+  DOMAIN: zod.string(),
+  COOKIE_SECRET: zod.string(),
+  JWT_SECRET: zod.string(),
+  JWT_EXPIRY: zod.coerce.number().positive(),
+  REFRESH_EXPIRY: zod.coerce.number().positive(),
 });
 
 

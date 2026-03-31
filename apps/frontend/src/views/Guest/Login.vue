@@ -201,10 +201,11 @@ const handleLogin = async () => {
   try {
     console.log({ form });
     await authStore.login(form.username, form.password);
+    errorMsg.value = "";
     router.push({ name: "Dashboard" });
   } catch (err) {
-    errorMsg.value =
-      err?.response?.data?.error || "Invalid credentials. Please try again.";
+    console.log({err})
+    errorMsg.value = "Invalid credentials. Please try again.";
   } finally {
     loading.value = false;
   }

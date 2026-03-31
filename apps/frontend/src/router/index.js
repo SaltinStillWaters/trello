@@ -19,12 +19,12 @@ const routes = [
 
   // USER LAYOUT (auth required)
   {
-    path: '/admin',
+    path: '/',
     component: () => import('@/layouts/UserLayout.vue'),
     meta: { requiresAuth: true },
     children: [
       {
-        path: '',
+        path: 'boards',
         name: 'Dashboard',
         component: () => import('@/views/User/Dashboard.vue'),
       },

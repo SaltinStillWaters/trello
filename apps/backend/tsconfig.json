@@ -5,6 +5,7 @@
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
     "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "outDir": "./dist",
     "baseUrl": "./",

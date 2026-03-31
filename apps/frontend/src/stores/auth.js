@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async (username, password) => {
     const response = await api.post('/auth/login', { username, password })
-    const data = response.data.data
+    const data = response.data
     console.log({data})
     user.value = data.user
 
@@ -40,7 +40,7 @@ export const useAuthStore = defineStore('auth', () => {
   const fetchMe = async () => {
     try {
       const response = await api.get('/auth/profile')
-      user.value = response.data.data
+      user.value = response.data
       console.log(user.value)
       localStorage.setItem('user', JSON.stringify(user.value))
       return user.value

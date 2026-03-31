@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TestExample } from './test-example/test.entity';
 import { TypedConfigModule } from './typed-config/typed-config.module';
 import { TypedConfigService } from './typed-config/typed-config.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TypedConfigService } from './typed-config/typed-config.service';
         autoLoadEntities: true
       })
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
