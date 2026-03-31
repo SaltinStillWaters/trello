@@ -28,6 +28,11 @@ const routes = [
         name: 'Dashboard',
         component: () => import('@/views/User/Dashboard.vue'),
       },
+      {
+        path: 'boards/:id',
+        name: 'BoardDetails',
+        component: () => import('@/views/User/BoardDetails.vue'),
+      },
     ],
   },
 ]

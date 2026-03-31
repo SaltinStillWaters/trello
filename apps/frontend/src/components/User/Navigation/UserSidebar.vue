@@ -8,13 +8,13 @@
   >
     <v-list-item
       class="py-4"
-      :prepend-icon="rail ? undefined : 'mdi-store'"
+      :prepend-icon="rail ? undefined : 'mdi-view-dashboard'"
     >
       <template v-if="rail" v-slot:prepend>
-        <v-icon color="amber-darken-2">mdi-store</v-icon>
+        <v-icon color="amber-darken-2">mdi-view-dashboard</v-icon>
       </template>
       <v-list-item-title v-if="!rail" class="text-white font-weight-bold text-subtitle-1">
-        GroceryPOS
+        Workspace
       </v-list-item-title>
     </v-list-item>
 
@@ -27,84 +27,33 @@
       </v-list-subheader>
 
       <v-list-item
-        prepend-icon="mdi-view-dashboard-outline"
-        title="Dashboard"
+        prepend-icon="mdi-home-outline"
+        title="Home"
         rounded="lg"
         color="amber-darken-2"
         base-color="white"
-      />
-
-      <v-list-item
-        prepend-icon="mdi-chart-bar"
-        title="Analytics"
-        rounded="lg"
-        color="amber-darken-2"
-        base-color="white"
+        to="/" 
       />
 
       <v-divider v-if="!rail" class="my-3 opacity-20" />
       
       <v-list-subheader v-if="!rail" class="text-uppercase text-caption font-weight-bold opacity-50 text-white">
-        Inventory Management
+        Your Boards
       </v-list-subheader>
 
       <v-list-item
-        prepend-icon="mdi-format-list-bulleted"
-        title="Product List"
+        v-for="board in boardStore.boards"
+        :key="board.id"
+        prepend-icon="mdi-developer-board"
+        :title="board.name"
         rounded="lg"
         color="amber-darken-2"
         base-color="white"
-      />
-      
-      <v-list-item
-        prepend-icon="mdi-package-variant-closed"
-        title="Inventory"
-        rounded="lg"
-        color="amber-darken-2"
-        base-color="white"
-      />
-
-      <v-list-item
-        prepend-icon="mdi-truck-delivery-outline"
-        title="Restock History"
-        rounded="lg"
-        color="amber-darken-2"
-        base-color="white"
-      />
-
-      <v-list-item
-        prepend-icon="mdi-clipboard-edit-outline"
-        title="Adjustment History"
-        rounded="lg"
-        color="amber-darken-2"
-        base-color="white"
-      />
-
-      <v-divider v-if="!rail" class="my-3 opacity-20" />
-
-      <v-list-subheader v-if="!rail" class="text-uppercase text-caption font-weight-bold opacity-50 text-white">
-        Admin
-      </v-list-subheader>
-
-      <v-list-item
-        prepend-icon="mdi-account-multiple-outline"
-        title="Users"
-        rounded="lg"
-        color="amber-darken-2"
-        base-color="white"
-      />
-
-      <v-list-item
-        prepend-icon="mdi-shield-account-outline"
-        title="Roles"
-        rounded="lg"
-        color="amber-darken-2"
-        base-color="white"
+        :to="`/boards/${board.id}`"
       />
 
     </v-list>
 
-    <!-- Collapse toggle pinned to bottom -->
     <template v-slot:append>
       <v-divider class="opacity-20" />
       <v-list-item
@@ -112,16 +61,18 @@
         :title="rail ? '' : 'Collapse'"
         rounded="lg"
         base-color="white"
-        class="opacity-60 my-1"
+        class="opacity-60 my-1 mx-2"
         @click="rail = !rail"
       />
     </template>
 
-    </v-navigation-drawer>
+  </v-navigation-drawer>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { useBoardStore } from '@/stores/board'
+import { storeToRefs } from 'pinia'
+import { ref, computed, onMounted } from 'vue'
 
 const props = defineProps({
   modelValue: {
@@ -137,4 +88,11 @@ const drawerModel = computed({
 })
 
 const rail = ref(false)
+
+// Mock Data for Boards - Eventually, you will fetch this from your backend API
+const boardStore = useBoardStore()
+
+onMounted(async () => {
+  await boardStore.fetchBoards()
+})
 </script>

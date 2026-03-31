@@ -5,13 +5,17 @@ import {
     Patch, 
     Param, 
     Delete, 
-    UseGuards 
+    UseGuards, 
+    Logger
 } from '@nestjs/common';
 import { CurrentUser, type AuthUser } from '../auth/types'; // Adjust path
 import { BoardColumnService } from './board-column.service';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 // Define your DTOs (You can move these to a separate column.dto.ts file)
 export class CreateColumnDto {
+    @IsString()
+    @IsNotEmpty()
     name: string;
 }
 
@@ -30,6 +34,8 @@ export class BoardColumnController {
         @CurrentUser() user: AuthUser,
         @Body() dto: CreateColumnDto
     ) {
+
+        Logger.log({boardId, user, ...dto})
         // We pass the user to the service to ensure they actually own the board
         // before allowing them to add a column to it!
         return await this.columnService.create(boardId, dto, user);
