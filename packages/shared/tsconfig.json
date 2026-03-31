@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Align with backend's module system
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+
+    // NestJS DI — keep if shared contains decorated classes
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    // Build output
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noEmit": false
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

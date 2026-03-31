@@ -1,0 +1,29 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolvePackageJsonExports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "removeComments": true,
+    "incremental": true,
+    "noEmit": false,
+
+    // Disable property initialization check for TypeORM entities
+    "strictPropertyInitialization": false,
+
+    // Intentional relaxations from strict base
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
+
+    /**
+    Inherited from base, kept for explicitness:
+    strict, esModuleInterop, skipLibCheck, forceConsistentCasingInFileNames,
+    declaration, sourceMap, target
+    **/
+  }
+}
