@@ -44,20 +44,49 @@ export class CardService {
     }
 
     async update(boardId: string, currentColumnId: string, cardId: string, dto: UpdateCardDto, user: AuthUser): Promise<Card> {
-        await this.boardService.findOne(boardId, user.userId);
+    await this.boardService.findOne(boardId, user.userId);
 
-        const card = await this.cardRepository.findOne({
-            where: { id: cardId, columnId: currentColumnId }
-        });
+    const card = await this.cardRepository.findOne({ where: { id: cardId } });
+    if (!card) throw new NotFoundException('Card not found');
 
-        if (!card) {
-            throw new NotFoundException('Card not found in this column');
+    const oldOrder = card.order;
+    const newOrder = dto.order;
+    const isNewColumn = dto.columnId && dto.columnId !== currentColumnId;
+
+    if (newOrder !== undefined && (oldOrder !== newOrder || isNewColumn)) {
+        
+        if (isNewColumn) {
+            await this.cardRepository.createQueryBuilder()
+                .update()
+                .set({ order: () => '"order" - 1' })
+                .where('columnId = :currentColumnId AND order > :oldOrder', { currentColumnId, oldOrder })
+                .execute();
+
+            await this.cardRepository.createQueryBuilder()
+                .update()
+                .set({ order: () => '"order" + 1' })
+                .where('columnId = :newColumnId AND order >= :newOrder', { newColumnId: dto.columnId, newOrder })
+                .execute();
+        } else {
+            if (oldOrder < newOrder) {
+                await this.cardRepository.createQueryBuilder()
+                    .update()
+                    .set({ order: () => '"order" - 1' })
+                    .where('columnId = :currentColumnId AND order > :oldOrder AND order <= :newOrder', { currentColumnId, oldOrder, newOrder })
+                    .execute();
+            } else {
+                await this.cardRepository.createQueryBuilder()
+                    .update()
+                    .set({ order: () => '"order" + 1' })
+                    .where('columnId = :currentColumnId AND order >= :newOrder AND order < :oldOrder', { currentColumnId, oldOrder, newOrder })
+                    .execute();
+            }
         }
-
-        Object.assign(card, dto);
-
-        return await this.cardRepository.save(card);
     }
+
+    Object.assign(card, dto);
+    return await this.cardRepository.save(card);
+}
 
     async remove(boardId: string, columnId: string, cardId: string, user: AuthUser): Promise<void> {
         await this.boardService.findOne(boardId, user.userId);

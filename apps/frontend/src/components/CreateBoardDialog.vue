@@ -61,7 +61,7 @@
 
 <script setup lang="ts">
 import api from '@/axios';
-import axios from 'axios';
+import { Color, useUIStore } from '@/stores/ui';
 import { ref, reactive } from 'vue';
 
 const isOpen = ref(false);
@@ -92,6 +92,8 @@ const resetForm = () => {
   }
 };
 
+const uiStore = useUIStore();
+
 const submit = async () => {
   const { valid } = await formRef.value.validate();
   if (!valid) return;
@@ -99,8 +101,6 @@ const submit = async () => {
   isLoading.value = true;
 
   try {
-    // Simulating backend call
-    console.log('Submitting new board:', formData);
     const result = await api.post('boards', {
       ...formData
     })
@@ -108,7 +108,7 @@ const submit = async () => {
     emit('board-created', { ...formData, ...result.data });
     close();
   } catch (error) {
-    console.error('Failed to create board:', error);
+    uiStore.queueMessage(Color.ERROR, error?.response?.data?.message ?? 'Error creating board')
   } finally {
     isLoading.value = false;
   }

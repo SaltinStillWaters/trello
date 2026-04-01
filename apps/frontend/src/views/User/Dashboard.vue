@@ -37,14 +37,12 @@
 
 <script setup>
 import { ref } from 'vue';
-import CreateBoardDialog from '@/components/CreateBoardDialog.vue'; // Update this path to match your folder structure
+import CreateBoardDialog from '@/components/CreateBoardDialog.vue';
 import { useBoardStore } from '@/stores/board';
 import { useRouter } from 'vue-router';
 
-// 1. Create a reference to the child component
 const createDialogRef = ref(null);
 
-// 2. Trigger the exposed 'open' method when the button is clicked
 const handleCreateBoard = () => {
   if (createDialogRef.value) {
     createDialogRef.value.open();
@@ -54,9 +52,7 @@ const handleCreateBoard = () => {
 const boardStore = useBoardStore()
 const router = useRouter()
 
-// 3. Handle the data when the dialog successfully submits
 const onBoardCreated = (newBoardData) => {
-  console.log('Success! The board data caught by the parent is:', newBoardData);
   boardStore.fetchBoards()  
   createDialogRef.value.close()
   router.push(`/boards/${newBoardData.id}`);

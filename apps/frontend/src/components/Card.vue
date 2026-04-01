@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import api from '@/axios';
+import { Color, useUIStore } from '@/stores/ui';
 
 const props = defineProps<{
   card: {
@@ -34,7 +35,8 @@ const emit = defineEmits(['openDetails']);
 
 const isLoadingDetails = ref(false);
 
-// Fetch full details from API before opening the modal
+const uiStore = useUIStore()
+
 const fetchCardDetails = async () => {
   if (isLoadingDetails.value) return; 
   
@@ -44,10 +46,9 @@ const fetchCardDetails = async () => {
       `boards/${props.boardId}/columns/${props.columnId}/cards/${props.card.id}`
     );
     
-    // Pass along the columnId so the parent knows exactly where this card lives
     emit('openDetails', { ...response.data, columnId: props.columnId });
   } catch (error) {
-    console.error('Failed to fetch full card details:', error);
+    uiStore.queueMessage(Color.ERROR, error?.response?.data?.message ?? 'Failed to fetch full card details:')
     emit('openDetails', { ...props.card, columnId: props.columnId });
   } finally {
     isLoadingDetails.value = false;

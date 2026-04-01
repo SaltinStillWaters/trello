@@ -158,10 +158,6 @@
 
       </v-sheet>
 
-      <!-- <div class="d-flex ga-8 position-absolute" style="bottom: 24px">
-        <v-btn variant="text" color="grey-darken-2" size="small">Privacy</v-btn>
-        <v-btn variant="text" color="grey-darken-2" size="small">Terms</v-btn>
-      </div> -->
     </v-col>
   </v-row>
 </template>
@@ -184,11 +180,9 @@ const form = reactive({ username: "", password: "" });
 
 const usernameRules = [
   (v) => !!v || "username is required",
-  // v => /.+@.+\..+/.test(v) || 'Must be a valid username',
 ];
 const passwordRules = [
   (v) => !!v || "Password is required",
-  // v => v.length >= 6 || 'Minimum 6 characters',
 ];
 
 const handleLogin = async () => {
@@ -201,10 +195,8 @@ const handleLogin = async () => {
   try {
     console.log({ form });
     await authStore.login(form.username.toLowerCase(), form.password);
-    errorMsg.value = "";
     router.push({ name: "Dashboard" });
   } catch (err) {
-    console.log({err})
     errorMsg.value = "Invalid credentials. Please try again.";
   } finally {
     loading.value = false;
