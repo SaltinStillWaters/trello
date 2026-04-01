@@ -8,7 +8,7 @@
     <v-app-bar-title>
       <div class="d-flex align-center ga-2">
         <v-icon color="primary" size="24">mdi-home-city</v-icon>
-        <span class="text-subtitle-1 font-weight-bold">EstateVue</span>
+        <span class="text-subtitle-1 font-weight-bold">Trello</span>
       </div>
     </v-app-bar-title>
 

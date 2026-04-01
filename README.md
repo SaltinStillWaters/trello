@@ -1,38 +1,89 @@
-# SudoCodes POS
+## 01. Getting Started
 
-A point-of-sale system built with NestJS for the backend and React for the frontend.
+### Introduction
 
-## Development Guidelines
+#### Overview
 
-### Conventions
-- Follow ESLint and Prettier configurations for consistent code formatting
-- Use camelCase for variables and functions, PascalCase for classes and components, and SCREAMING_SNAKE_CASE for constants.
-- Commit messages should be a meaningful commit message preceeded by the task id.
-- Branch names should be the task/ticket id (ex. POS-001).
+A Trello-clone using Vue.js, NestJS, and PostgreSQL.
 
-### Git Branch Naming
-- `feature/branch-name` - New features
-- `bugfix/branch-name` - Bug fixes
-- `hotfix/branch-name` - Urgent production fixes
-- `chore/branch-name` - Maintenance tasks
+#### Key Features
 
-## Testing with Docker Containers
+* Authentication
+  The following credentials are provided:
 
-## Full Clean Reset
-```bash
-docker-compose down -v
-docker-compose build
-docker-compose up
+  * **Username:** John
+  * **Password:** a
+
+* Board Management (CRUD)
+
+* Column Management (CRUD)
+
+* Card Management (CRUD)
+
+* Drag and drop support
+
+---
+
+### Requirements
+
+* Docker **or** PostgreSQL
+* pnpm
+
+---
+
+### Installation
+
+#### Step-by-step Instructions
+
+Follow the steps below to set up and run the application.
+
+---
+
+### Task 1
+
+#### Step 1: Repository Setup
+
+```
+git clone https://github.com/SaltinStillWaters/trello.git
+cd trello
+pnpm install
 ```
 
-## Quick Testing (Preserves Data)
-```bash
-docker-compose up --build
+---
+
+#### Step 2.A: Database Setup (Docker Way)
+
+```
+# Start Docker Engine first
+docker compose up -d
+pnpm seed
 ```
 
-## Simple Restart
-```bash
-docker-compose restart
+---
+
+#### Step 2.B: Database Setup (Non-Docker Way)
+
+```
+# Provision a new PostgreSQL database
+
+# Update environment variables
+# File: apps/backend/.env
+
+pnpm seed
 ```
 
-**Note:** The `-v` flag removes all data. Skip it if you want to keep your database and volumes.
+---
+
+#### Step 3: Run the Application
+
+```
+pnpm dev
+```
+
+---
+
+### Important Note
+
+The `.env` file was intentionally committed to facilitate a smoother setup process.
+
+Typically, I provide a `.env.example` file, allowing developers to create their own `.env` configuration.
