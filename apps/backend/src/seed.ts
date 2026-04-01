@@ -16,7 +16,7 @@ const AppDataSource = new DataSource({
 });
 
 async function runSeeder() {
-  console.log('🌱 Starting database seeder...');
+  console.log('Starting database seeder...');
 
   try {
     await AppDataSource.initialize();
@@ -30,38 +30,26 @@ async function runSeeder() {
 
     const users = [
       { 
-        name: 'John', 
+        name: 'john', 
         roles: [Role.Admin],
         passwordHash: defaultPasswordHash,
         isActive: true
       },
       { 
-        name: 'Luna', 
+        name: 'luna', 
         roles: [Role.Admin],
-        passwordHash: defaultPasswordHash,
-        isActive: true
-      },
-      { 
-        name: 'cashier1@a.com', 
-        roles: [Role.User],
-        passwordHash: defaultPasswordHash,
-        isActive: true
-      },
-      { 
-        name: 'manager@a.com', 
-        roles: [Role.User],
         passwordHash: defaultPasswordHash,
         isActive: true
       },
     ];
 
     await userRepository.insert(users);
-    console.log(`✅ Successfully seeded ${users.length} users! (Password: password123)`);
+    console.log(`Successfully seeded ${users.length} users! (Password: a)`);
   } catch (error) {
-    console.error('❌ Error during seeding:', error);
+    console.error('Error during seeding:', error);
   } finally {
     await AppDataSource.destroy();
-    console.log('🔌 Disconnected from database.');
+    console.log('Disconnected from database.');
   }
 }
 

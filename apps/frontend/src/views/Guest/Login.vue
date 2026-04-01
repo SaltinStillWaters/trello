@@ -200,7 +200,7 @@ const handleLogin = async () => {
 
   try {
     console.log({ form });
-    await authStore.login(form.username, form.password);
+    await authStore.login(form.username.toLowerCase(), form.password);
     errorMsg.value = "";
     router.push({ name: "Dashboard" });
   } catch (err) {

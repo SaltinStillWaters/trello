@@ -82,6 +82,12 @@ pnpm dev
 
 ---
 
+### Login Credentials
+
+Username: John
+Password: a
+
+
 ### Important Note
 
 The `.env` file was intentionally committed to facilitate a smoother setup process.
