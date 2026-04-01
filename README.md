@@ -77,9 +77,10 @@ pnpm seed
 #### Step 3: Run the Application
 
 ```
-pnpm dev
+pnpm start:new
 ```
 
+(This might take a while so please wait until both the backend and frontend have finished loading)
 ---
 
 ### Login Credentials
@@ -90,6 +91,6 @@ Password: a
 
 ### Important Note
 
-The `.env` file was intentionally committed to facilitate a smoother setup process.
+- The `.env` file was intentionally committed to facilitate a smoother setup process.
 
-Typically, I provide a `.env.example` file, allowing developers to create their own `.env` configuration.
+  Typically, I provide a `.env.example` file, allowing developers to create their own `.env` configuration.
