@@ -30,13 +30,13 @@ async function runSeeder() {
 
     const users = [
       { 
-        name: 'a', 
+        name: 'John', 
         roles: [Role.Admin],
         passwordHash: defaultPasswordHash,
         isActive: true
       },
       { 
-        name: 'admin@a.com', 
+        name: 'Luna', 
         roles: [Role.Admin],
         passwordHash: defaultPasswordHash,
         isActive: true

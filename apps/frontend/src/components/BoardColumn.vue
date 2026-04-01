@@ -47,13 +47,17 @@
         @change="handleDragChange"
       >
         <template #item="{ element }">
-          <Card :card="element" @click="$emit('cardClicked', element)" />
+          <Card 
+            :card="element"
+            :boardId="boardId"
+            :columnId="column.id"
+            @openDetails="$emit('cardClicked', $event)" 
+          />
         </template>
       </draggable>
     </v-card-text>
   </v-card>
 </template>
-
 <script setup lang="ts">
 import { ref } from 'vue';
 import Card from './Card.vue';

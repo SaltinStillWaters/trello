@@ -4,7 +4,8 @@ import {
     Body, 
     Patch, 
     Param, 
-    Delete, 
+    Delete,
+    Get, 
 } from '@nestjs/common';
 import { CardService } from './card.service';
 import { CurrentUser, type AuthUser } from '../auth/types'; // Adjust path
@@ -13,6 +14,16 @@ import { CreateCardDto, UpdateCardDto } from './types';
 @Controller('boards/:boardId/columns/:columnId/cards')
 export class CardController {
     constructor(private readonly cardService: CardService) {}
+
+    @Get(':id')
+    async get(        
+        @Param('boardId') boardId: string,
+        @Param('columnId') currentColumnId: string,
+        @Param('id') cardId: string,
+        @CurrentUser() user: AuthUser,
+    ) {
+        return await this.cardService.get(boardId, cardId, user);
+    }
 
     @Post()
     async create(

@@ -106,6 +106,10 @@ api.interceptors.response.use(
       }
     }
 
+    const uiStore = useUIStore()
+    console.log({error})
+    uiStore.queueMessage(Color.ERROR, error.response.data.message)
+
     // For other errors, just reject
     return Promise.reject(error)
   }

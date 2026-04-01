@@ -13,10 +13,11 @@ export class BoardService {
 
     async create(dto: CreateBoardDto, userId: string): Promise<Board> {
         const matchedBoards = await this.boardRepository.findOne({
-            where: { ownerId: userId }
+            where: { ownerId: userId, name: dto.name }
         })
 
         if (matchedBoards) {
+            Logger.log({matchedBoards})
             throw new BadRequestException(`Board ${dto.name} already exists`)
         }
 
@@ -58,7 +59,7 @@ export class BoardService {
             where: { ownerId: userId, name: dto.name}
         })
 
-        if (matchedBoard) {
+        if (matchedBoard && matchedBoard.id !== id) {
             throw new BadRequestException(`Board ${dto.name} already exists`)
         }
         

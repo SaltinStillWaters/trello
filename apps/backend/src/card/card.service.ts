@@ -14,6 +14,19 @@ export class CardService {
         private readonly boardService: BoardService, 
     ) {}
 
+    async get(boardId: string, cardId: string, user: AuthUser): Promise<Card> {
+        const result = await this.cardRepository.findOne({
+            where: {
+            id: cardId}
+        })
+
+        if (!result) {
+            throw new NotFoundException(`Card not found`)
+        }
+
+        return result
+    }
+
     async create(boardId: string, columnId: string, dto: CreateCardDto, user: AuthUser): Promise<Card> {
         await this.boardService.findOne(boardId, user.userId);
 

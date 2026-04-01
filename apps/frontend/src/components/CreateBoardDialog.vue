@@ -101,11 +101,11 @@ const submit = async () => {
   try {
     // Simulating backend call
     console.log('Submitting new board:', formData);
-    await api.post('boards', {
+    const result = await api.post('boards', {
       ...formData
     })
 
-    emit('board-created', { ...formData });
+    emit('board-created', { ...formData, ...result.data });
     close();
   } catch (error) {
     console.error('Failed to create board:', error);
@@ -114,5 +114,5 @@ const submit = async () => {
   }
 };
 
-defineExpose({ open });
+defineExpose({ open, close });
 </script>

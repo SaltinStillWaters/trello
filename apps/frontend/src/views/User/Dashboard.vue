@@ -39,6 +39,7 @@
 import { ref } from 'vue';
 import CreateBoardDialog from '@/components/CreateBoardDialog.vue'; // Update this path to match your folder structure
 import { useBoardStore } from '@/stores/board';
+import { useRouter } from 'vue-router';
 
 // 1. Create a reference to the child component
 const createDialogRef = ref(null);
@@ -51,13 +52,13 @@ const handleCreateBoard = () => {
 };
 
 const boardStore = useBoardStore()
+const router = useRouter()
 
 // 3. Handle the data when the dialog successfully submits
 const onBoardCreated = (newBoardData) => {
   console.log('Success! The board data caught by the parent is:', newBoardData);
   boardStore.fetchBoards()  
-  // TODO: Add logic to fetch your updated list of boards, 
-  // or use vue-router to redirect to the new board's page:
-  // router.push(`/boards/${newBoardData.id}`);
+  createDialogRef.value.close()
+  router.push(`/boards/${newBoardData.id}`);
 };
 </script>

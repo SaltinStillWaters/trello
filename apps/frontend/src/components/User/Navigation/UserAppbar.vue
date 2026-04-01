@@ -51,7 +51,7 @@
           <v-divider />
 
           <v-list density="compact" nav>
-            <v-list-item
+            <!-- <v-list-item
               prepend-icon="mdi-account-circle-outline"
               title="Profile"
               rounded="lg"
@@ -61,7 +61,7 @@
               title="Settings"
               rounded="lg"
             />
-            <v-divider class="my-1" />
+            <v-divider class="my-1" /> -->
             <v-list-item
               prepend-icon="mdi-logout"
               title="Logout"
