@@ -9,6 +9,11 @@ const routes = [
     component: () => import('@/layouts/GuestLayout.vue'),
     children: [
       {
+        path: '',
+        name: 'Home',
+        redirect: { name: 'Login' } 
+      },
+      {
         path: 'login',
         name: 'Login',
         component: () => import('@/views/Guest/Login.vue'),
